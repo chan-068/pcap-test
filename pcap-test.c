@@ -63,6 +63,8 @@ void parse_packet(const u_char* packet){
 	int ip_len = (ip->ver_IHL&0x0F)*4;
 	struct tcp_hdr* tcp = (struct tcp_hdr *)(packet + 14 + ip_len);
 	int tcp_len = ((tcp->offset_reserved&0xF0)>>4)*4;
+	tcp->scr_port = ntohs(tcp->scr_port);
+	tcp->des_port = ntohs(tcp->des_port);
 
 	printf("\n--------------------------\n");
 
